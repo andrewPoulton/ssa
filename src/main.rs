@@ -26,6 +26,10 @@ enum Commands {
         delim: i32,
         #[clap(short, long, default_value_t = 32)]
         num_workers: usize,
+        #[clap(short, long, default_value_t = true)]
+        lowercase: bool,
+        #[clap(short, long, default_value_t = true)]
+        remove_punc: bool,
         #[clap(short, long, default_value_t = 0)]
         show_progress: usize,
     },
@@ -58,6 +62,8 @@ fn main() -> () {
             model,
             delim,
             num_workers,
+            lowercase,
+            remove_punc,
             show_progress,
         } => {
             let _ = multithread_tokenize_jsonl(
@@ -67,6 +73,8 @@ fn main() -> () {
                 model.to_owned(),
                 *num_workers,
                 *delim,
+                *lowercase,
+                *remove_punc,
                 *show_progress,
             );
         }
